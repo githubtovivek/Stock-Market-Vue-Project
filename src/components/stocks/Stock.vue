@@ -32,13 +32,14 @@
         methods: {
             buyStocks() {
                 const order = {
-                    stockID: this.stock.id,
-                    stockName: this.stock.name,
+                    stockId: this.stock.id,
                     stockPrice: this.stock.price,
+                    stockName: this.stock.name,
                     quantity: this.quantity
                 }
 
-                console.log(order);
+                this.$store.dispatch('buyStocks', order);
+
                 this.quantity = 0;
             }
         }
