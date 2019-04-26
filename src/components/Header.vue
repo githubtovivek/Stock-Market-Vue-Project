@@ -14,13 +14,13 @@
             <a>Stocks</a>
           </router-link>
         </ul>
-
+        <strong class="navbar-text navbar-right"> {{ funds | currency}} </strong>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="">End Day</a>
+            <a href="#" @click="endDay">End Day</a>
           </li>
-          <li class="dropdown">
-            <a href="" class="dropdown-toggle" data-toggggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Save & Load
+          <li class="dropdown" :class="{open: isDropDownOpen}" @click="isDropDownOpen = !isDropDownOpen">
+            <a href="#" class="dropdown-toggle" data-toggggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Save & Load
               <span class="caret"></span>
             </a> 
             <ul class="dropdown-menu">
@@ -33,3 +33,31 @@
     </div>
   </nav>
 </template>
+
+<script>
+import { mapActions } from 'vuex';
+
+export default {
+    data() {
+      return {
+        isDropDownOpen: false
+      }
+    },
+    computed: {
+        funds() {
+            return this.$store.getters.funds;
+        }
+    },
+    methods: {
+      ...mapActions([
+        'randomizeStocks'
+      ]),
+      endDay() {
+        this.randomizeStocks();
+      },
+      toggleDropDown() {
+        this.isDropDownOpen = !isDropDownOpen;
+      }
+    }
+}
+</script>

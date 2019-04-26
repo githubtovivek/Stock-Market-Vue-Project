@@ -1,11 +1,11 @@
 const state = {
-    userFunds: 1000,
+    userFunds: 20000,
     userStocks: []
 }
 
 const mutations = {
     "BUY_STOCKS" (state, order) {
-        const stock = state.userStocks.find(element => element.id === stockId);
+        const stock = state.userStocks.find(element => element.id === order.stockId);
         
         if(stock) {
             stock.quantity += stockQuantity;
@@ -20,7 +20,7 @@ const mutations = {
             )
         }
 
-        state.funds -= order.stockPrice * order.quantity;
+        state.userFunds -= order.stockPrice * order.quantity;
     },
     "SELL_STOCKS" (state, order) {
         const stock = state.userStocks.find(element => element.id === order.stockId);
@@ -31,7 +31,7 @@ const mutations = {
             state.userStocks.splice(state.stocks.indexOf(stock), 1);
         }
 
-        state.funds += order.stockPrice * order.quantity;
+        state.userFunds += order.stockPrice * order.quantity;
     }
 };
 
@@ -58,7 +58,7 @@ const getters = {
         })
     },
     funds(state) {
-        return state.funds;
+        return state.userFunds;
     }
 }
 

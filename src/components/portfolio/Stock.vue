@@ -14,7 +14,11 @@
                 </div>
 
                 <div class="pull-right">
-                    <button class="btn btn-success" @click="sellStock" :disabled="quantity <= 0 ">Sell</button>
+                    <button class="btn btn-success" @click="sellStock" :disabled="insufficiantQuantity || quantity <= 0 ">Sell</button>
+                </div>
+
+                 <div class="error" v-if="insufficiantQuantity">
+                    <strong>Alert!</strong> You may not have sufficient stocks to sell.
                 </div>
             </div>
         </div>
@@ -27,6 +31,11 @@
         data() {
             return {
                 quantity: 0
+            }
+        },
+        computed: {
+            insufficiantQuantity() {
+                return this.quantity > this.stock.quantity;
             }
         },
         methods: {
@@ -45,4 +54,14 @@
         }
     };
 </script>
+
+<style>
+.error {
+    clear: both;
+    color:red;
+    background: bisque;
+    padding: 10px;
+}
+</style>
+
 
