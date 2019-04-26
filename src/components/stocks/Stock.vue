@@ -17,7 +17,7 @@
                     <button class="btn btn-success" @click="buyStocks" :disabled="insufficiantFunds || quantity <= 0 ">Buy</button>
                 </div>
 
-                <div class="alert alert-danger" v-if="insufficiantFunds">
+                <div class="error" v-if="insufficiantFunds">
                     <strong>Alert!</strong> You may not have sufficient funds.
                 </div>
             </div>

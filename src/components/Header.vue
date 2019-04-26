@@ -24,8 +24,8 @@
               <span class="caret"></span>
             </a> 
             <ul class="dropdown-menu">
-              <li><a href="">Save Data</a></li>
-              <li><a href="">Load Data</a></li>
+              <li><a href="#" @click="saveData">Save Data</a></li>
+              <li><a href="#" @click="loadData">Load Data</a></li>
             </ul>
           </li>
         </ul>
@@ -35,29 +35,39 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
-    data() {
-      return {
-        isDropDownOpen: false
-      }
-    },
-    computed: {
-        funds() {
-            return this.$store.getters.funds;
-        }
-    },
-    methods: {
-      ...mapActions([
-        'randomizeStocks'
-      ]),
-      endDay() {
-        this.randomizeStocks();
-      },
-      toggleDropDown() {
-        this.isDropDownOpen = !isDropDownOpen;
-      }
+  data() {
+    return {
+      isDropDownOpen: false
+    };
+  },
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
     }
-}
+  },
+  methods: {
+    ...mapActions({
+      randomizeStocks: "randomizeStocks",
+      fetchData: "loadData"
+    }),
+    endDay() {
+      this.randomizeStocks();
+    },
+    saveData() {
+      const data = {
+        funds: this.$store.getters.funds,
+        stockPortfolio: this.$store.getters.stockPortfolio,
+        stock: this.$store.getters.stocks
+      };
+
+      this.$http.put("stockData.json", data);
+    },
+    loadData() {
+      this.fetchData();
+    }
+  }
+};
 </script>

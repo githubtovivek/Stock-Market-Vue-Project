@@ -32,6 +32,10 @@ const mutations = {
         }
 
         state.userFunds += order.stockPrice * order.quantity;
+    },
+    "LOAD_PORTFOLIO" (state, portFolio) {
+        state.userFunds = portFolio.funds;
+        state.userStocks = portFolio.stockPortFolio ? portFolio.stockPortFolio : [];
     }
 };
 
@@ -41,7 +45,7 @@ const actions = {
     },
     buyStocks: ({ commit }, order) => {
         commit('BUY_STOCKS', order);
-    },
+    }
 }
 
 const getters = {
